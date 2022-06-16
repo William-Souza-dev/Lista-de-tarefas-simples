@@ -3,7 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:lista_de_tarefa/models/todo.dart';
 
-class TodoListItem extends StatefulWidget {
+class TodoListItem extends StatelessWidget {
   const TodoListItem({Key? key, required this.todo, required this.onDelete})
       : super(key: key);
 
@@ -11,16 +11,10 @@ class TodoListItem extends StatefulWidget {
   final Function(Todo) onDelete;
 
   @override
-  State<TodoListItem> createState() => _TodoListItemState();
-}
-
-class _TodoListItemState extends State<TodoListItem> {
-  @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Slidable(
-        key: const ValueKey(Todo),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
@@ -31,13 +25,13 @@ class _TodoListItemState extends State<TodoListItem> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                DateFormat('dd/MM/yyyy - HH:mm').format(widget.todo.dateTime),
+                DateFormat('dd/MM/yyyy - HH:mm').format(todo.dateTime),
                 style: const TextStyle(
                   fontSize: 12,
                 ),
               ),
               Text(
-                widget.todo.title,
+                todo.title,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
@@ -46,44 +40,18 @@ class _TodoListItemState extends State<TodoListItem> {
             ],
           ),
         ),
-        endActionPane: ActionPane(
-            dismissible: DismissiblePane(
-              onDismissed: () {
-                widget.onDelete(widget.todo);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                        'Tarefa ${widget.todo.title} foi removida com sucesso!'),
-                    action: SnackBarAction(
-                      label: 'Desfazer',
-                      textColor: const Color(0xff00d7f3),
-                      onPressed: () {},
-                    ),
-                  ),
-                );
-              },
-            ),
-            motion: ScrollMotion(),
-            children: [
-              SlidableAction(
-                  backgroundColor: Colors.red,
-                  label: 'Deletar',
-                  icon: Icons.delete,
-                  onPressed: (context) {
-                    widget.onDelete(widget.todo);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                            'Tarefa ${widget.todo.title} foi removida com sucesso!'),
-                        action: SnackBarAction(
-                          label: 'Desfazer',
-                          textColor: const Color(0xff00d7f3),
-                          onPressed: () {},
-                        ),
-                      ),
-                    );
-                  }),
-            ]),
+        actionExtentRatio: 0.20,
+        actionPane: const SlidableDrawerActionPane(),
+        secondaryActions: [
+          IconSlideAction(
+            color: Colors.red,
+            icon: Icons.delete,
+            caption: 'Deletar',
+            onTap: () {
+              onDelete(todo);
+            },
+          ),
+        ],
       ),
     );
   }
