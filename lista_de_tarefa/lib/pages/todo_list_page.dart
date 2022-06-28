@@ -4,7 +4,7 @@ import 'package:lista_de_tarefa/repositories/todo_repository.dart';
 import 'package:lista_de_tarefa/widgets/todo_list_item.dart';
 
 class TodoListPage extends StatefulWidget {
-  TodoListPage({Key? key}) : super(key: key);
+  const TodoListPage({Key? key}) : super(key: key);
 
   @override
   State<TodoListPage> createState() => _TodoListPageState();
@@ -48,23 +48,23 @@ class _TodoListPageState extends State<TodoListPage> {
                       child: TextField(
                         controller: todoController,
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(),
+                          border: const OutlineInputBorder(),
                           labelText: 'Adicionar uma Tarefa',
                           hintText: 'Ex: Estudar Flutter',
                           errorText: errorText,
-                          focusedBorder: OutlineInputBorder(
+                          focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0xff00d7f3),
                               width: 2,
                             ),
                           ),
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                             color: Color(0xff00d7f3),
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     ElevatedButton(
                       onPressed: () {
                         String text = todoController.text;
@@ -87,17 +87,17 @@ class _TodoListPageState extends State<TodoListPage> {
                         todoRepository.saveTodoList(todos);
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: Color(0xff00d7f3),
-                        padding: EdgeInsets.all(14),
+                        primary: const Color(0xff00d7f3),
+                        padding: const EdgeInsets.all(14),
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.add,
                         size: 30,
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Flexible(
                   child: ListView(
                     shrinkWrap: true,
@@ -110,7 +110,7 @@ class _TodoListPageState extends State<TodoListPage> {
                     ],
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Row(
                   children: [
                     Expanded(
@@ -118,14 +118,14 @@ class _TodoListPageState extends State<TodoListPage> {
                         'Voce possui ${todos.length} tarefas pendentes',
                       ),
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     ElevatedButton(
                       onPressed: showDeleteTodosConfirmationDialog,
                       style: ElevatedButton.styleFrom(
-                        primary: Color(0xff00d7f3),
-                        padding: EdgeInsets.all(14),
+                        primary: const Color(0xff00d7f3),
+                        padding: const EdgeInsets.all(14),
                       ),
-                      child: Text(
+                      child: const Text(
                         'Limpar Tudo',
                       ),
                     ),
@@ -169,17 +169,17 @@ class _TodoListPageState extends State<TodoListPage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Limpar Tudo?'),
-        content: Text('Você tem certeza que dejesa apagar todas as tarefas?'),
+        title: const Text('Limpar Tudo?'),
+        content: const Text('Você tem certeza que dejesa apagar todas as tarefas?'),
         actions: [
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
             style: TextButton.styleFrom(
-              primary: Color(0xff00d7f3),
+              primary: const Color(0xff00d7f3),
             ),
-            child: Text('Cancelar'),
+            child: const Text('Cancelar'),
           ),
           TextButton(
             onPressed: () {
@@ -189,7 +189,7 @@ class _TodoListPageState extends State<TodoListPage> {
             style: TextButton.styleFrom(
               primary: Colors.red,
             ),
-            child: Text('Limpar Tudo'),
+            child: const Text('Limpar Tudo'),
           ),
         ],
       ),
